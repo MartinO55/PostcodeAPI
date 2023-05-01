@@ -2,6 +2,7 @@ package com.martin.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,9 +16,10 @@ public class Postcode {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, name = "code")
   private String code;
 
   public Postcode(Long id, String code, Suburb suburb) {
@@ -26,7 +28,7 @@ public class Postcode {
     this.suburb = suburb;
   }
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "suburb_id")
   private Suburb suburb;
 

@@ -1,7 +1,9 @@
 package com.martin.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +17,7 @@ public class Suburb {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
   public Long getId() {
@@ -25,7 +28,7 @@ public class Suburb {
     this.id = id;
   }
 
-  @Column(nullable = false)
+  @Column(nullable = false, name = "name")
   private String name;
 
   public Suburb(Long id, String name, List<Postcode> postcodes) {
@@ -42,7 +45,11 @@ public class Suburb {
     this.name = name;
   }
 
-  @OneToMany(mappedBy = "suburb")
+  @OneToMany(
+    mappedBy = "suburb",
+    cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY
+  )
   private List<Postcode> postcodes;
 
   public List<Postcode> getPostcodes() {
