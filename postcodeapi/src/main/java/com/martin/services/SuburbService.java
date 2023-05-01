@@ -1,17 +1,38 @@
 package com.martin.services;
 
+import com.martin.DAOs.SuburbDao;
 import com.martin.model.Postcode;
 import com.martin.model.Suburb;
+import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SuburbService {
 
+  @Autowired
+  private SuburbDao suburbDao;
+
   public Suburb getSuburbByPostcode(String postcode) {
-    return null;
+    Optional<Suburb> suburbOptional = suburbDao.findByPostcodesCode(postcode);
+    return suburbOptional.orElseThrow(() ->
+      new EntityNotFoundException("suburb not found for postcode: " + postcode)
+    );
   }
 
   public Postcode getPostCodeBySuburbName(String suburbName) {
-    return null;
+    Optional<Postcode> postCodeOptional = suburbDao.findBySuburbName(
+      suburbName
+    );
+    return postCodeOptional.orElseThrow(() ->
+      new EntityNotFoundException(
+        "postcode not found for suburb: " + suburbName
+      )
+    );
   }
 
-  public void addSuburbAndPostCode(Suburb suburb) {}
+  public void addSuburbAndPostCode(Suburb suburb) {
+    suburbDao.save(suburb);
+  }
 }
