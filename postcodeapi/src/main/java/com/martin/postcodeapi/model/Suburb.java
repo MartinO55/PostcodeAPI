@@ -1,4 +1,4 @@
-package com.martin.model;
+package com.martin.postcodeapi.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

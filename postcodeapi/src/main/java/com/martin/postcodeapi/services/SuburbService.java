@@ -1,8 +1,8 @@
-package com.martin.services;
+package com.martin.postcodeapi.services;
 
-import com.martin.DAOs.SuburbDao;
-import com.martin.model.Postcode;
-import com.martin.model.Suburb;
+import com.martin.postcodeapi.DAOs.SuburbDao;
+import com.martin.postcodeapi.model.Postcode;
+import com.martin.postcodeapi.model.Suburb;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

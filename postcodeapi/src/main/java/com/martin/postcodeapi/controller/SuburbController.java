@@ -1,8 +1,8 @@
 package com.martin.postcodeapi.controller;
 
-import com.martin.model.Postcode;
-import com.martin.model.Suburb;
-import com.martin.services.SuburbService;
+import com.martin.postcodeapi.model.Postcode;
+import com.martin.postcodeapi.model.Suburb;
+import com.martin.postcodeapi.services.SuburbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public class SuburbController {
   @Autowired
   private SuburbService suburbService;
 
-  @GetMapping("/{postcode}")
+  @GetMapping("/postcode/{postcode}")
   public ResponseEntity<Suburb> getSuburbByPostcode(
     @PathVariable String postcode
   ) {
@@ -27,7 +27,7 @@ public class SuburbController {
     return ResponseEntity.ok(suburb);
   }
 
-  @GetMapping("/{suburbName}/postcode")
+  @GetMapping("/name/{suburbName}/postcode")
   public ResponseEntity<Postcode> getPostCodeBySuburbName(
     @PathVariable String suburbName
   ) {
@@ -35,8 +35,10 @@ public class SuburbController {
     return ResponseEntity.ok(postcode);
   }
 
-  @PostMapping
-  public ResponseEntity<?> addSuburbAndPostCode(@RequestBody Suburb suburb) {
+  @PostMapping("/")
+  public ResponseEntity<Suburb> addSuburbAndPostCode(
+    @RequestBody Suburb suburb
+  ) {
     suburbService.addSuburbAndPostCode(suburb);
     return ResponseEntity.ok().build();
   }

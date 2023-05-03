@@ -1,7 +1,7 @@
-package com.martin.DAOs;
+package com.martin.postcodeapi.DAOs;
 
-import com.martin.model.Postcode;
-import com.martin.model.Suburb;
+import com.martin.postcodeapi.model.Postcode;
+import com.martin.postcodeapi.model.Suburb;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
