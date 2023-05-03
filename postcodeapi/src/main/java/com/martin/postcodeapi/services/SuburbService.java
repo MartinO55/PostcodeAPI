@@ -27,7 +27,7 @@ public class SuburbService {
     );
     return postCodeOptional.orElseThrow(() ->
       new EntityNotFoundException(
-        "postcode not found for suburb: " + suburbName
+        "Postcode not found for suburb: " + suburbName
       )
     );
   }

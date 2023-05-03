@@ -15,6 +15,10 @@ import java.util.List;
 @Table(name = "suburbs")
 public class Suburb {
 
+  // I don't know why, but these variables are neccessary to start the server. I know they are unused, but the code breaks without them.
+  private int code;
+  private String suburb;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -29,20 +33,20 @@ public class Suburb {
   }
 
   @Column(nullable = false, name = "name")
-  private String name;
+  private String suburbName;
 
-  public Suburb(Long id, String name, List<Postcode> postcodes) {
+  public Suburb(Long id, String suburbName, List<Postcode> postcodes) {
     this.id = id;
-    this.name = name;
+    this.suburbName = suburbName;
     this.postcodes = postcodes;
   }
 
   public String getName() {
-    return name;
+    return suburbName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String suburbName) {
+    this.suburbName = suburbName;
   }
 
   @OneToMany(
