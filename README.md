@@ -18,13 +18,22 @@ Just explain what was remaining to do
   retrieve and add suburb and postcode combinations. You do not have
   to write the mobile app!
 - We want you to implement:
+
   - An API that allows mobile clients to retrieve the suburb information by postcode.
   - An API that allows mobile clients to retrieve a postcode given a suburb name
+
 - A secured API to add new suburb and postcode combinations (you'll have to work out how this should work)
 - Some form of persistence (a database)
 - Testing for controller / service layers
 
 ## Design Considerations
+
+    - The First problem with this is that there is no single return for either of these. Postcodes can have many suburbs and suburbs can have multiple postcodes. AND some suburbs have no postcode.
+    - This makes this really annoying: you can have a list of suburbs and their postcodes, but you repeat postcodes (or have null postcodes). And you repeat suburbs. If you have a list of postcodes, you lose suburbs, or you have the same postcode like 6 times.
+
+    So to not break every rule of database design, you have to do a join table. I have no clue how to do this, so this will be FUN.
+
+    So best option is probably to accept duplicate postcodes, and to store postcode as a string? but if its updateable by users then... no delete, miss spellings, you will have duplicates anyway. And postcode has to be a string because of the Pommes
 
 - Best Practice
   - Develop with current best practice
