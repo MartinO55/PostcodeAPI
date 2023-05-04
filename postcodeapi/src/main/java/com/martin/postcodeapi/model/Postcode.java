@@ -1,14 +1,8 @@
 package com.martin.postcodeapi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "postcodes")
@@ -16,21 +10,18 @@ public class Postcode {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
+  Long id;
 
-  @Column(nullable = false, name = "code")
-  private String code;
+  @Column
+  String postcode;
 
-  public Postcode(Long id, String code, Suburb suburb) {
-    this.id = id;
-    this.code = code;
-    this.suburb = suburb;
-  }
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "suburb_id")
-  private Suburb suburb;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(
+    name = "suburb_postcodes",
+    joinColumns = @JoinColumn(name = "suburb_id"),
+    inverseJoinColumns = @JoinColumn(name = "postcode_id")
+  )
+  private Set<Suburb> suburbs = new HashSet<>();
 
   public Long getId() {
     return id;
@@ -40,19 +31,11 @@ public class Postcode {
     this.id = id;
   }
 
-  public String getCode() {
-    return code;
+  public String getPostcode() {
+    return postcode;
   }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public Suburb getSuburb() {
-    return suburb;
-  }
-
-  public void setSuburb(Suburb suburb) {
-    this.suburb = suburb;
+  public void setPostcode(String postcode) {
+    this.postcode = postcode;
   }
 }

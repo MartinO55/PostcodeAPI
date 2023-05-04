@@ -1,44 +1,27 @@
 package com.martin.postcodeapi.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import java.util.List;
+import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "suburbs")
-public class Suburb {
+public class Suburb implements Serializable {
 
   // I don't know why, but these variables are neccessary to start the server. I know they are unused, but the code breaks without them.
-  private int code;
-  private String suburb;
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
+  Long id;
 
-  public Long getId() {
-    return id;
-  }
+  String suburbName;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @ManyToMany(mappedBy = "postcodes")
+  private Set<Postcode> postcodes = new HashSet<>();
 
-  @Column(nullable = false, name = "name")
-  private String suburbName;
-
-  public Suburb(Long id, String suburbName, List<Postcode> postcodes) {
+  public Suburb(Long id, String suburbName) {
     this.id = id;
     this.suburbName = suburbName;
-    this.postcodes = postcodes;
   }
 
   public String getName() {
@@ -49,18 +32,11 @@ public class Suburb {
     this.suburbName = suburbName;
   }
 
-  @OneToMany(
-    mappedBy = "suburb",
-    cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY
-  )
-  private List<Postcode> postcodes;
-
-  public List<Postcode> getPostcodes() {
-    return postcodes;
+  public Long getId() {
+    return id;
   }
 
-  public void setPostcodes(List<Postcode> postcodes) {
-    this.postcodes = postcodes;
+  public void setId(Long id) {
+    this.id = id;
   }
 }
