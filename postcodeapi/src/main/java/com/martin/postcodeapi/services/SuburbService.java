@@ -3,11 +3,15 @@ package com.martin.postcodeapi.services;
 import com.martin.postcodeapi.DTOs.CreateSuburbDTO;
 import com.martin.postcodeapi.Repositories.SuburbRepository;
 import com.martin.postcodeapi.model.Suburb;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+@Transactional
 public class SuburbService {
 
   @Autowired
