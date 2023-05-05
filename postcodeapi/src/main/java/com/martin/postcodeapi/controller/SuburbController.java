@@ -38,9 +38,33 @@ public class SuburbController {
     return new ResponseEntity<>(allSuburbs, HttpStatus.OK);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("suburbs/{id}")
   public ResponseEntity<Suburb> getSuburbbyID(@PathVariable Long id) {
     Optional<Suburb> maybeSuburb = this.suburbService.findByID(id);
+
+    if (maybeSuburb.isEmpty()) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(maybeSuburb.get(), HttpStatus.OK);
+  }
+
+  @GetMapping("suburbs/{suburbname}")
+  public ResponseEntity<Suburb> getSuburbBySuburbName(
+    @PathVariable String suburbName
+  ) {
+    Optional<Suburb> maybeSuburb = this.suburbService.findByName(suburbName);
+
+    if (maybeSuburb.isEmpty()) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(maybeSuburb.get(), HttpStatus.OK);
+  }
+
+  @GetMapping("suburbs/{postCode}")
+  public ResponseEntity<Suburb> getSuburbBypostCode(
+    @PathVariable String postCode
+  ) {
+    Optional<Suburb> maybeSuburb = this.suburbService.findByPostCode(postCode);
 
     if (maybeSuburb.isEmpty()) {
       return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

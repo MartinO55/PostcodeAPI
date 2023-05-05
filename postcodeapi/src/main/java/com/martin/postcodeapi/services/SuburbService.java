@@ -36,4 +36,12 @@ public class SuburbService {
   public Optional<Suburb> findByID(Long id) {
     return this.suburbRepository.findById(id);
   }
+
+  public Optional<Suburb> findByName(String suburbName) {
+    return this.suburbRepository.findbyName(suburbName);
+  }
+
+  public Optional<Suburb> findByPostCode(String postCode) {
+    return this.suburbRepository.findbyName(postCode);
+  }
 }
