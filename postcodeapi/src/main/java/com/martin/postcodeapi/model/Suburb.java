@@ -13,6 +13,8 @@ public class Suburb {
     this.postCode = postCode;
   }
 
+  public Suburb() {}
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
